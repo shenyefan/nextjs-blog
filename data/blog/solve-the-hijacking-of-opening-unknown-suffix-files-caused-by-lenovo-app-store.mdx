@@ -1,0 +1,20 @@
+---
+title: '解决联想应用商店造成的打开未知后缀文件劫持'
+date: 2023-01-04T16:12:24Z
+lastmod: '2023-01-04'
+tags: ['Windows']
+---
+
+此方法可以解决联想应用商店造成的打开未知后缀文件被劫持的问题，并删掉右键菜单莫名其妙的LeASOpen。
+![](/static/images/2023-01-04-01.png)
+
+# 解决办法如下
+1.打开 **注册表编辑器**
+
+2.删除该项：
+
+```
+计算机\HKEY_CLASSES_ROOT\Unknown\shell\LeASOpen
+```
+
+![](/static/images/2023-01-04-02.png)

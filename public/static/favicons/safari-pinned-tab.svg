@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="LOGO" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #000;
+      }
+
+      .cls-1, .cls-2 {
+        stroke-width: 0px;
+      }
+
+      .cls-2 {
+        fill: #fafafa;
+      }
+    </style>
+  </defs>
+  <g id="_背景" data-name="背景">
+    <rect class="cls-2" x="12" y="12" width="1000" height="1000" rx="200" ry="200"/>
+  </g>
+  <g id="LOGO编组">
+    <path class="cls-1" d="M745,375h-475v-150h500v125c0,13.81-11.19,25-25,25Z"/>
+    <path class="cls-1" d="M395,815h-125v-400h150v375c0,13.81-11.19,25-25,25Z"/>
+    <path class="cls-1" d="M685,565h-225v-150h250v125c0,13.81-11.19,25-25,25Z"/>
+  </g>
+</svg>
