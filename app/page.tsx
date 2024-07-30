@@ -6,12 +6,10 @@ export default function Home() {
       <div className="flex min-h-screen flex-col justify-center px-4">
         <div className="flex w-full -translate-y-20 transform flex-col items-start justify-between md:flex-row">
           <div className="text-left md:w-2/3">
-            <h2
-              className="text-4xl font-extrabold leading-normal tracking-tight text-gray-900 dark:text-white sm:text-5xl sm:leading-normal md:text-6xl md:leading-normal">
+            <h2 className="text-4xl font-extrabold leading-normal tracking-tight text-gray-900 dark:text-white sm:text-5xl sm:leading-normal md:text-6xl md:leading-normal">
               Hi! 👋
             </h2>
-            <h1
-              className="text-4xl font-extrabold leading-normal tracking-tight text-gray-900 dark:text-white sm:text-5xl sm:leading-normal md:text-6xl md:leading-normal">
+            <h1 className="text-4xl font-extrabold leading-normal tracking-tight text-gray-900 dark:text-white sm:text-5xl sm:leading-normal md:text-6xl md:leading-normal">
               I'm Moenya
             </h1>
             <p className="mt-4 text-xl leading-normal text-gray-600 dark:text-gray-400">
