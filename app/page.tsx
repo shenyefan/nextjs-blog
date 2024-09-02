@@ -1,4 +1,5 @@
 import Link from '@/components/Link'
+import Image from 'next/image'
 
 export default function Home() {
   return (
@@ -25,9 +26,11 @@ export default function Home() {
             </div>
           </div>
           <div className="mt-12 hidden md:mt-0 md:flex md:w-1/3 md:items-center md:justify-end">
-            <img
+            <Image
               src="/static/images/avatar.jpg"
               alt="Profile"
+              width={240}
+              height={240}
               className="h-60 w-60 rounded-full object-cover md:h-full md:w-auto"
             />
           </div>
