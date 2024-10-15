@@ -7,9 +7,24 @@ interface Apps {
 
 const appsData: Apps[] = [
   {
-    title: 'Building...',
-    description: `description...`,
-    href: 'https://moenya.net',
+    title: 'SubConverter Web',
+    description: `在线订阅转换服务`,
+    href: 'https://sub.suki.icu',
+  },
+  {
+    title: 'Github Proxy',
+    description: `Github 加速服务`,
+    href: 'https://gh.suki.icu',
+  },
+  {
+    title: 'Docker Proxy',
+    description: `Docker 加速服务`,
+    href: 'https://dk.suki.icu',
+  },
+  {
+    title: 'Live Stream',
+    description: `没什么用的直播`,
+    href: 'https://live.suki.icu',
   },
 ]
 
