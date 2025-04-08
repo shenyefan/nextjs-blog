@@ -1,0 +1,37 @@
+---
+title: 'VMware安装Ubuntu24进入系统卡住或黑屏'
+date: 2024-08-28T22:18:53Z
+lastmod: '2024-08-28'
+tags: ['VMware', 'Linux']
+---
+
+## 问题表现
+
+1. 安装后启动黑屏。
+2. 启动后能够进入登陆界面，登陆后黑屏。
+3. 进入系统后VMware卡死，无法关机，且VMware无法退出，提示虚拟机繁忙，需在任务管理器强制结束进程才可退出。
+
+## 解决方法
+
+### 方案一
+打开虚拟机设置，取消勾选加速3D图形功能，重启虚拟机。
+
+### 方案二
+更新Ubuntu24图形驱动。
+在终端中输入如下命令，更新后重启Ubuntu。
+
+```
+sudo add-apt-repository ppa:oibaf/graphics-drivers
+sudo apt update
+sudo apt upgrade
+```
+
+## VMware Tools 安装方法
+
+在终端中输入如下命令，随后后重启Ubuntu。
+
+```
+sudo apt update
+sudo apt install open-vm-tools-desktop -y
+```
+

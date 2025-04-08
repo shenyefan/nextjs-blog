@@ -1,0 +1,32 @@
+---
+title: '使用Nginx搭建Docker代理'
+date: 2024-07-20T10:11:00Z
+lastmod: '2024-07-20'
+tags: ['Nginx', 'Linux']
+---
+```nginx
+    location /v2/ {
+        proxy_pass https://registry-1.docker.io;
+        proxy_set_header Host registry-1.docker.io;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_buffering off;
+        proxy_request_buffering off;
+        proxy_http_version 1.1;
+        proxy_read_timeout 7200s;
+        proxy_send_timeout 7200s;
+        send_timeout 7200s;
+        proxy_connect_timeout 7200s;
+        proxy_set_header Authorization $http_authorization;
+        proxy_pass_header Authorization;
+        proxy_intercept_errors on;
+        recursive_error_pages on;
+        error_page 301 302 307 = @handle_redirect;
+    }
+    location @handle_redirect {
+        resolver 1.1.1.1;
+        set $saved_redirect_location '$upstream_http_location';
+        proxy_pass $saved_redirect_location;
+    }
+```

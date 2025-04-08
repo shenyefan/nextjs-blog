@@ -1,0 +1,59 @@
+---
+title: '使用Docker部署Firefox浏览器'
+date: 2023-12-31T21:56:44Z
+lastmod: '2023-12-31'
+tags: ['Linux']
+---
+
+由于有使用云服务器浏览器调试的需求，故使用 [Docker-Firefox](https://github.com/jlesage/docker-firefox) 这一项目创建一个可以远程访问的Firefox浏览器。
+
+> 本部署仅为个人测试环境，生产环境请谨慎使用
+
+1.创建挂载目录用于存放配置文件
+
+```
+mkdir -p /docker/firefox
+```
+
+2.创建Firefox容器
+
+```
+docker run -d --name=firefox \
+  -e LANG=zh_CN.UTF-8 \
+  -e KEEP_APP_RUNNING=1 \
+  -e ENABLE_CJK_FONT=1 \
+  -e VNC_PASSWORD=password \
+  -p 5800:5800 \
+  -v /docker/firefox:/config:rw \
+  jlesage/firefox
+```
+
+![](/static/images/2023-12-31-01.png)
+
+以下是部分变量解释：
+
+|变量名|描述|默认值|
+|---|---|---|
+|`USER_ID`|应用程序运行所用的用户ID。|`1000`|
+|`GROUP_ID`|应用程序运行所用的组ID。|`1000`|
+|`SUP_GROUP_IDS`|应用程序的补充组ID的逗号分隔列表。|（无默认值）|
+|`UMASK`|控制新创建的文件和文件夹权限设置的掩码。掩码值采用八进制表示。默认情况下，默认umask值为`0022`，意味着新创建的文件和文件夹对所有人可读，但只有所有者可写。|`0022`|
+|`LANG`|设置区域设置，它定义了应用程序的语言（**如果支持**）。例如，使用UTF-8编码的中文为`zh_CN.UTF-8`。|`zh_CN.UTF-8`|
+|`TZ`|容器使用的时区。时区也可以通过映射主机和容器之间的`/etc/localtime`来设置。|`Etc/UTC`|
+|`KEEP_APP_RUNNING`|当设置为`1`时，应用程序崩溃或终止时将自动重启。|`0`|
+|`APP_NICENESS`|应用程序应运行的优先级。niceness值为-20是最高优先级，19是最低优先级。默认niceness值为0。**注意**：负的niceness（优先级提升）需要额外权限。在这种情况下，容器应该使用docker选项`--cap-add=SYS_NICE`来运行。|`0`|
+|`INSTALL_PACKAGES`|在容器启动期间安装的软件包的空格分隔列表。|（无默认值）|
+|`PACKAGES_MIRROR`|安装软件包时使用的仓库镜像。镜像列表可在 [https://mirrors.alpinelinux.org](https://mirrors.alpinelinux.org/) 找到。|（无默认值）|
+|`CONTAINER_DEBUG`|设置为`1`以启用调试日志记录。|`0`|
+|`DISPLAY_WIDTH`|应用程序窗口的宽度（以像素为单位）。|`1920`|
+|`DISPLAY_HEIGHT`|应用程序窗口的高度（以像素为单位）。|`1080`|
+|`DARK_MODE`|当设置为`1`时，为应用程序启用暗模式。|`0`|
+|`SECURE_CONNECTION`|当设置为`1`时，使用加密连接访问应用程序的GUI（通过网络浏览器或VNC客户端）。|`0`|
+|`SECURE_CONNECTION_VNC_METHOD`|用于执行安全VNC连接的方法。可能的值有`SSL`或`TLS`。|`SSL`|
+|`SECURE_CONNECTION_CERTS_CHECK_INTERVAL`|系统验证Web或VNC证书是否更改的间隔（以秒为单位）。检测到更改时，受影响的服务将自动重启。值为`0`时禁用检查。|`60`|
+|`WEB_LISTENING_PORT`|用于提供应用程序UI的Web服务器的端口。此端口由容器内部使用，通常无需更改。默认情况下，容器创建时使用默认桥接网络，这意味着要访问每个内部容器端口，必须将其映射到外部端口（使用`-p`或`--publish`参数）。然而，如果容器使用其他网络类型创建，则更改容器使用的端口可能有助于防止与其他服务/容器冲突。**注意**：值为`-1`时禁用监听，意味着应用程序的UI无法通过HTTP/HTTPs访问。|`5800`|
+|`VNC_LISTENING_PORT`|用于提供应用程序UI的VNC服务器的端口。此端口由容器内部使用，通常无需更改。默认情况下，容器创建时使用默认桥接网络，这意味着要访问每个内部容器端口，必须将其映射到外部端口（使用`-p`或`--publish`参数）。然而，如果容器使用其他网络类型创建，则更改容器使用的端口可能有助于防止与其他服务/容器冲突。**注意**：值为`-1`时禁用监听，意味着应用程序的UI无法通过VNC访问。|`5900`|
+|`VNC_PASSWORD`|连接到应用程序GUI所需的密码。|（无默认值）|
+|`ENABLE_CJK_FONT`|当设置为`1`时，安装开源计算机字体`WenQuanYi Zen Hei`。此字体包含大量中文/日文/韩文字符（可能需要特殊网络环境）。|`0`|
+|`FF_OPEN_URL`|当Firefox启动时要打开的URL。|（无默认值）|
+|`FF_KIOSK`|设置为`1`以启用展示模式。此模式以非常受限和有限的方式启动Firefox，最适合公共区域或面向客户的显示屏。|`0`|

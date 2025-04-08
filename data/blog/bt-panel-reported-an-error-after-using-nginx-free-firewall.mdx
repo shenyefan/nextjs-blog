@@ -1,0 +1,24 @@
+---
+title: '宝塔面板使用Nginx免费防火墙后报错'
+date: 2023-05-30T20:11:14Z
+lastmod: '2023-05-30'
+tags: ['BT-Panel', 'Linux']
+---
+## 问题表现
+
+使用宝塔面板编译安装 Nginx 1.22.1 后，再安装 Nginx免费防火墙 7.3 后报错
+
+```
+nginx: the configuration file /www/server/nginx/conf/nginx.conf syntax is ok
+nginx: configuration file /www/server/nginx/conf/nginx.conf test failed
+```
+
+## 问题分析
+
+修改 Nginx 配置文件 `error_log  /www/wwwlogs/nginx_error.log debug` 后使用 `nginx -t` 检查，查看日志后，对比相似配置的系统发现 `/usr/local/lib/lua/5.1` 该文件夹下缺少文件。
+
+## 解决方法
+
+下载提供的[附件](/static/files/5.1_aLRJGD.tar.gz)，补全所有文件后，重启Nginx即可正常启动。
+
+![](/static/images/2023-05-30-01.png)
